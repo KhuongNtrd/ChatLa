@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:ChatLa.Client"
+             x:Class="ChatLa.Client.MainPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="100" />
+        </Grid.ColumnDefinitions>
+
+        <Button Text="Tạo Phòng"
+                Grid.Row="0"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Clicked="ActionClicked"
+                x:Name="MainButton" />
+
+        <Label Text="..."
+               HorizontalTextAlignment="Center"
+               Grid.Row="1"
+               Grid.Column="0"
+               Grid.ColumnSpan="2"
+               x:Name="StatusLabel" />
+
+        <ListView x:Name="MainListView"
+                  Grid.Row="2"
+                  Grid.Column="0"
+                  Grid.ColumnSpan="2">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout BackgroundColor="DeepSkyBlue"
+                                     Padding="6">
+                            <StackLayout.Triggers>
+                                <DataTrigger TargetType="StackLayout"
+                                             Value="True"
+                                             Binding="{Binding Mine}">
+                                    <Setter Property="BackgroundColor"
+                                            Value="DeepPink"></Setter>
+                                </DataTrigger>
+                            </StackLayout.Triggers>
+                            <Label Text="{Binding Content}"
+                                   FontSize="18"
+                                   VerticalTextAlignment="Center"
+                                   TextColor="White">
+                                <Label.Triggers>
+                                    <DataTrigger Binding="{Binding Mine}"
+                                                 Value="True"
+                                                 TargetType="Label">
+                                        <Setter Property="HorizontalTextAlignment"
+                                                Value="End"></Setter>
+                                    </DataTrigger>
+                                </Label.Triggers>
+                            </Label>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <Entry Grid.Row="3"
+               Grid.Column="0"
+               Placeholder="tin nhắn..."
+               x:Name="ChatEntry" 
+               Keyboard="Chat"
+               Completed="ChatEntry_OnCompleted"/>
+
+        <Button Text="Gửi"
+                Grid.Column="1"
+                Grid.Row="3"
+                Clicked="SendOnClicked"
+                x:Name="ChatButton" />
+    </Grid>
+
+</ContentPage>
